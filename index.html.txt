@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Smart To Do List</title>
+<link rel="stylesheet" href="style.css">
+
+<!-- Lottie Animation -->
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1> To Do List</h1>
+
+<div class="character">
+<lottie-player
+src="https://assets10.lottiefiles.com/packages/lf20_j1adxtyb.json"
+background="transparent"
+speed="1"
+loop
+autoplay>
+</lottie-player>
+</div>
+
+<p id="taskCounter">0 / 0 tasks completed</p>
+
+<div class="progress-container">
+<div id="progressBar"></div>
+</div>
+
+<input type="text" id="searchTask" placeholder="Search tasks...">
+
+<input type="text" id="taskInput" placeholder="Enter a task">
+
+<input type="date" id="dueDate">
+
+<button onclick="addTask()">Add</button>
+
+<ul id="taskList"></ul>
+
+<p id="taskMessage"></p>
+
+<div class="color-picker">
+<div class="color-box blue" onclick="changeColor('#9f9a18')"></div>
+<div class="color-box purple" onclick="changeColor('#4ba292')"></div>
+<div class="color-box green" onclick="changeColor('#d9e1df')"></div>
+<div class="color-box pink" onclick="changeColor('#ff4b8b')"></div>
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

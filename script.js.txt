@@ -1,0 +1,156 @@
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+function addTask(){
+
+let input = document.getElementById("taskInput");
+let dueDate = document.getElementById("dueDate");
+
+let text = input.value.trim();
+
+if(text===""){
+alert("Please enter a task");
+return;
+}
+
+tasks.push({
+text:text,
+date:dueDate.value,
+completed:false
+});
+
+input.value="";
+dueDate.value="";
+
+saveTasks();
+renderTasks();
+
+}
+
+function saveTasks(){
+localStorage.setItem("tasks",JSON.stringify(tasks));
+}
+
+function renderTasks(){
+
+let list=document.getElementById("taskList");
+list.innerHTML="";
+
+tasks.forEach((task,index)=>{
+
+let li=document.createElement("li");
+
+let span=document.createElement("span");
+
+span.textContent=task.text + (task.date ? " 📅 "+task.date:"");
+
+if(task.completed){
+span.style.textDecoration="line-through";
+}
+
+span.onclick=function(){
+task.completed=!task.completed;
+saveTasks();
+renderTasks();
+}
+
+let del=document.createElement("button");
+del.textContent="✖";
+del.className="delete-btn";
+
+del.onclick=function(){
+tasks.splice(index,1);
+saveTasks();
+renderTasks();
+}
+
+li.appendChild(span);
+li.appendChild(del);
+
+list.appendChild(li);
+
+});
+
+updateProgress();
+updateCounter();
+updateMessage();
+
+}
+
+function updateProgress(){
+
+let total=tasks.length;
+let completed=tasks.filter(t=>t.completed).length;
+
+let percent= total===0 ? 0 : (completed/total)*100;
+
+document.getElementById("progressBar").style.width=percent+"%";
+
+}
+
+function updateCounter(){
+
+let total=tasks.length;
+let completed=tasks.filter(t=>t.completed).length;
+
+document.getElementById("taskCounter").textContent=
+completed+" / "+total+" tasks completed";
+
+}
+
+function updateMessage(){
+
+let msg=document.getElementById("taskMessage");
+
+if(tasks.length===0){
+msg.textContent="No tasks yet 📝";
+}
+else{
+msg.textContent="";
+}
+
+}
+
+function changeColor(color){
+document.body.style.background=color;
+}
+
+/* SEARCH */
+
+document.getElementById("searchTask").addEventListener("keyup",function(){
+
+let filter=this.value.toLowerCase();
+
+document.querySelectorAll("#taskList li").forEach(li=>{
+
+let text=li.textContent.toLowerCase();
+
+li.style.display=text.includes(filter)?"flex":"none";
+
+});
+
+});
+
+/* AUTO BACKGROUND CHANGE */
+
+const gradients=[
+"linear-gradient(135deg,#487cb0,#ff00bf)",
+"linear-gradient(135deg,#1e90ff,#00c6ff)",
+"linear-gradient(135deg,#16a085,#f4d03f)",
+"linear-gradient(135deg,#ff512f,#dd2476)"
+];
+
+let i=0;
+
+setInterval(()=>{
+
+document.body.style.background=gradients[i];
+
+i++;
+
+if(i>=gradients.length){
+i=0;
+}
+
+},2000);
+
+renderTasks();
