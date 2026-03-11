@@ -35,4 +35,4 @@ https://sunitha13042005.github.io/todo-app/
 ## Author
 Sunitha  
 Computer Science Engineering Student  
-GitHub: https://github.com/sunitha13042005
+GitHub: https://github.com/sunitha-codes
